@@ -56,10 +56,9 @@ class UrbanRoutesPage:
     blanket_handkerchiefs = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div') #19
     ice_cream = (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[3]') #20
     order_taxi = (By.CLASS_NAME, "smart-button-main") #21
-
-    searching_car_modal = (By.XPATH, "//div[contains(@class, 'order-header-title') and contains(text(), 'Buscar automóvil')]")
-    DRIVER_INFO_MODAL = (By.XPATH, "//div[contains(@class, 'order-header-title') and contains(text(), 'El conductor llegará en')]")
-    TRIP_INFO_PANEL = (By.CLASS_NAME, "order-body")  # Usaremos toda la estructura del modal
+    searching_car_modal = (By.XPATH, "//div[contains(@class, 'order-header-title') and contains(text(), 'Buscar automóvil')]") #22
+    DRIVER_INFO_MODAL = (By.XPATH, "//div[contains(@class, 'order-header-title') and contains(text(), 'El conductor llegará en')]") #23
+    TRIP_INFO_PANEL = (By.CLASS_NAME, "order-body")  # Usaremos toda la estructura del modal #24
 
     def __init__(self, driver):
         self.driver = driver
@@ -247,12 +246,14 @@ class UrbanRoutesPage:
         button_element.click()
 
 
-#VERIFICACION DEL PANEL
+#VERIFICACION DEL PANEL BUSCANDO CONDUCTOR #22
     def wait_for_searching_car_modal(self):
         # Espera a que aparezca el modal de "Buscar automóvil"
         WebDriverWait(self.driver, 30).until(
             EC.visibility_of_element_located(self.searching_car_modal))
 
+
+#VERIFICACION DE QUE SEA VISIBLE LA INFORMACION DEL CONDUCTOR #23
     def wait_for_driver_info_modal(self):
         # Espera a que el modal cambie a mostrar la información del conductor
         WebDriverWait(self.driver, 60).until(
@@ -372,11 +373,11 @@ class TestUrbanRoutes:
         time.sleep(5)
 
 
-     #ORDENAR TAXI
+     #ORDENAR TAXI #21
         self.routes_page.button_order_taxi()
 
 
-     #VERIFICACION DEL MODAL
+     #VERIFICACION DEL LA APARICION DEL MODAL BUSCAR AUTOMOVIL #22
 
         WebDriverWait(self.driver, 30).until(
             EC.visibility_of_element_located(
@@ -384,7 +385,8 @@ class TestUrbanRoutes:
         )
         print("✅ Modal de búsqueda de automóvil mostrado correctamente.")
 
-        # VERIFICACIÓN DEL CAMBIO AL MODAL DE INFORMACIÓN DEL VIAJE
+     # VERIFICACIÓN DEL CAMBIO AL MODAL DE INFORMACIÓN DEL VIAJE #23
+
         WebDriverWait(self.driver, 60).until(
             EC.visibility_of_element_located((By.XPATH,
                                               "//div[contains(@class, 'order-header-title') and contains(text(), 'El conductor llegará en')]"))
