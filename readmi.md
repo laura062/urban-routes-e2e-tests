@@ -68,7 +68,7 @@
 
 
 # Detalles de los test.
-- El caso de prueba test_full_flow simula el siguiente flujo dentro de la aplicación Urban Routes:
+- El caso de las pruebas  simula el siguiente flujo dentro de la aplicación Urban Routes:
 
 * Abrir la URL de la aplicación.
 * Ingresar la dirección de origen.
