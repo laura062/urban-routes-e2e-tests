@@ -191,7 +191,7 @@ class UrbanRoutesPage:
 
 
 
-#CLICK EN BOTON AGREGAR #15
+#CLICK EN BOTON AGREGAR (tarjeta) #15
     def add_card_button_click(self):
         wait = WebDriverWait(self.driver,10)
         add_button = wait.until(EC.element_to_be_clickable(self.add_card_button))
@@ -259,7 +259,7 @@ class UrbanRoutesPage:
         WebDriverWait(self.driver, 60).until(
             EC.visibility_of_element_located(self.DRIVER_INFO_MODAL))
 
-
+#FIN DE LOS METODOS
 
 
 class TestUrbanRoutes:
@@ -277,11 +277,10 @@ class TestUrbanRoutes:
 
 
 
-    def test_full_flow(self):
+    def test1_set_route(self):
 
         self.driver.get(data.urban_routes_url)
         self.routes_page = UrbanRoutesPage(self.driver)
-        self.timeout = 10
 
         address_from = data.address_from
         address_to = data.address_to
@@ -289,32 +288,58 @@ class TestUrbanRoutes:
         self.routes_page.set_2to(address_to)
 
      # 🛻 Hacer clic en el botón PEDIR TAXI #3
+    def test2_click_a_button_taxi(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.click_taxi_button()
-        self.timeout = 10
+
+        # Agregar un print informativo
+        print("Se intentó hacer clic en el botón de taxi.")
+
+        #  Esperar a que aparezca un nuevo elemento en la página
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]/div[2]'))
+            )
+            assert True  # Si la espera tuvo éxito, asumimos que el clic funcionó
+            print("su pudo hacer click en el boton .")
+        except:
+            assert False, "No se pudo verificar que se hizo click en el boton PEDIR TAXI (no se encontró el elemento esperado)."
+
 
     #HACER CLICK EN LA TARIFA COMFORT #4
+    def test3_select_plan(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.click_button_comfort()
-        self.timeout = 10
+
+        print("Se intentó elejir la tarifa comfort .")
+
+        # Ejemplo de aserción: Esperar a que aparezca un nuevo elemento en la página
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(
+                    (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[1]/div[5]/div[2]'))
+            )
+            assert True  # Si la espera tuvo éxito, asumimos que la eleccion tuvo exito
+            print("Se pudo eleigir la tarifa comfort.")
+        except:
+            assert False, "No se pudo verificar que se elejio la tarifa comfort(no se encontró el elemento esperado)."
 
 
-     #HACER CLICK EN EL CAMPO NUMERO DE TELEFONO #5
+    #HACER CLICK EN EL CAMPO NUMERO DE TELEFONO #5
+    def test4_fill_phone_number(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.click_field_number()
-        self.timeout = 10
 
 
-    #LLENAR EL CAMPO NUMERO DE TELEFONO #6
+    #LLENAR EL CAMPO NUMERO DE TELEFONO #6:
         phone_number = data.phone_number
         self.routes_page.set_phone_number(phone_number)
-        self.timeout = 10
-
 
      #HACER CLICK EN EL BOTON SIGUIENTE #7
         self.routes_page.click_button_next()
-        time.sleep(5)
-
+        time.sleep(10)
 
     #AGREGAR EL CODIGO EN EL CAMPO "AGREGAR EL CODIGO" #8
-
         verification_code = retrieve_phone_code(self.driver)
         assert verification_code is not None, "No se recuperó el código de verificación."
         print(f"Código obtenido: {verification_code}")
@@ -323,57 +348,108 @@ class TestUrbanRoutes:
 
     #HACER CLICK EN LE BOTON CONFIRMAR #9
         self.routes_page.click_button_confirm_code()
-        self.timeout = 10
+
+
 
     # HACER CLICK EN METODO DE PAGO #10
+    def test5_fill_card(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.click_payment_method()
 
     #CLICK EN AGREGAR TARJETA #11
         self.routes_page.add_card_click()
-        time.sleep(4)
 
     #AGREGAR EL NUMERO DE TARJETA #12
         card_number = data.card_number
         self.routes_page.set_add_card_number(card_number)
-
-
     #AGREGAR CODIGO #13
         card_code = data.card_code
         self.routes_page.set_add_code(card_code)
 
-
-
      #CLICK DESENFOQUE #14
         self.routes_page.to_blur_click()
 
-
      #CLICK EN EL BOTON AGREGAR #15
         self.routes_page.add_card_button_click()
-        time.sleep(5)
 
-     #HACER CLICK EN EL BOTON X DE LA VENTANA METODO DE PAGO #16
+        print("Se intento agragar targeta como metodo de pago .")
+
+        #  Esperar a que aparezca un nuevo elemento en la página
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(
+                    (By.XPATH, '//*[@id="root"]/div/div[2]/div[2]/div[1]/div[2]/div[3]/div[3]/label/span' ))
+            )
+            assert True  # Si la espera tuvo éxito, asumimos que la eleccion tuvo exito
+            print("Se puede ver el check , se agrego.")
+        except:
+            assert False, "No se pudo verificar el check (no se encontró el elemento esperado)."
+
+     # HACER CLICK EN EL BOTON X DE LA VENTANA METODO DE PAGO #16
         self.routes_page.click_close_button()
-        time.sleep(5)
 
-     #AGREGAR MENSAJE PARA EL CONDUCTOR # 17
+
+
+    def test6_comment_for_driver(self):
+     # AGREGAR MENSAJE PARA EL CONDUCTOR # 17
+        self.routes_page = UrbanRoutesPage(self.driver)
         message_driver = data.message_for_driver
         self.routes_page.set_message_for_the_driver(message_driver)
         time.sleep(5)
 
-     #CLICK EN FECHITA PARA LOS REQUISITOS #18
-        self.routes_page.open_arrow_reqs()
+     #CONFIRMAR SI SE AGREGO EL MENSAJE PARA EL COMDUCTOR.
+        added_message = self.routes_page.get_message() # <- necesitas un método que obtenga el texto actual
+        print(f"Mensaje agregado para el conductor: '{added_message}'")
+        assert added_message == message_driver, "El mensaje para el conductor si se agregó correctamente."
 
+
+    def test7_order_blanket_and_handkerchiefs(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
+     #CLICK PARA ABRIR LOS REQUISITOS #18
+        self.routes_page.open_arrow_reqs()
      #CLICK PARA ELEJIR MANTA Y PAÑUELOS #19
         self.routes_page.ask_blanket_handkerchiefs()
+
+        print("Se intento agregar manta y pañuelos .")
+
+        #  Esperar a que aparezca un nuevo elemento en la página
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(
+                    (By.XPATH, '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[1]/div/div[2]/div/span'))
+            )
+            assert True  # Si la espera tuvo éxito, asumimos que la eleccion tuvo exito
+            print("su color paso azul y verifica que a sido seleccionado.")
+        except:
+            assert False, "No cambio a color azul (no se encontró el elemento esperado)."
+
 
 
 
      #ELEJIR DOS HELADOS #20
+    def test8_order_2_ice_creams(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.order_ice_cream()
-        time.sleep(5)
+
+        print("Se intento agregar 2 helados .")
+
+        #  Esperar a que aparezca un nuevo elemento en la página
+        try:
+            WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located(
+                    (By.XPATH,
+                     '//*[@id="root"]/div/div[3]/div[3]/div[2]/div[2]/div[4]/div[2]/div[3]/div/div[2]/div[1]/div/div[2]/div/div[2]'))
+            )
+            assert True  # Si la espera tuvo éxito, asumimos que la eleccion tuvo exito
+            print("su valor cambio y paso de 0 a 2.")
+        except:
+            assert False, "No cambio el valor de seleccion(no se encontró el elemento esperado)."
+
 
 
      #ORDENAR TAXI #21
+    def test9_car_search_model_appears(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
         self.routes_page.button_order_taxi()
 
 
@@ -386,6 +462,8 @@ class TestUrbanRoutes:
         print("✅ Modal de búsqueda de automóvil mostrado correctamente.")
 
      # VERIFICACIÓN DEL CAMBIO AL MODAL DE INFORMACIÓN DEL VIAJE #23
+    def test10_driver_info_appears(self):
+        self.routes_page = UrbanRoutesPage(self.driver)
 
         WebDriverWait(self.driver, 60).until(
             EC.visibility_of_element_located((By.XPATH,
@@ -397,8 +475,6 @@ class TestUrbanRoutes:
         assert self.driver.find_element(By.CLASS_NAME,
                                         "order-body").is_displayed(), "❌ El modal de información del viaje no se mostró."
         print("✅ Panel de información del viaje verificado.")
-
-
 
 
 

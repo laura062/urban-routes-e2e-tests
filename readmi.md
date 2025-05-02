@@ -1,4 +1,4 @@
-# PROYECTO 8 'URBAN ROUTES'
+# PROYECTO 8 'URBAN ROUTES' DE LAURA LETICIA CHAN COCOM DEL COHORT 25
   - Automatización de Pruebas Funcionales para Urban Routes
 
  - Este proyecto contiene scripts de automatización de pruebas funcionales desarrollados en Python utilizando la
@@ -31,6 +31,29 @@
   necesitas tener instalado el ChromeDriver compatible con la versión de Google Chrome que tengas instalada en tu sistema. 
   Puedes descargar el ChromeDriver desde la [página oficial de ChromeDriver](https://chromedriver.chromium.org/downloads). 
   Asegúrate de que el ejecutable de ChromeDriver esté en tu PATH o especifica la ruta al inicializar el WebDriver.
+
+1.  **Asegúrate de tener `pytest` instalado:**
+    Si no tienes `pytest` instalado, puedes instalarlo usando pip:
+    ```bash
+    pip install pytest
+    ```
+
+2.  **Navega al directorio del proyecto:**
+    Abre tu terminal o símbolo del sistema y dirígete a la raíz del proyecto:
+    ```bash
+    cd qa-project-Urban-Routes-es
+    ```
+    o cd (C:\Users\shule\PycharmProjects\qa-project-Urban-Routes-es)
+
+3.  **Ejecuta las pruebas:**
+    Desde la raíz del proyecto, ejecuta el siguiente comando para que `pytest` descubra y ejecute las pruebas en el archivo `main.py`:
+    ```bash
+    pytest main.py
+    ```
+
+
+
+
 
 ## Estructura del Proyecto:
 
