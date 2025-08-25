@@ -1,4 +1,4 @@
-PROYECTO 8 'RUTAS URBANAS' DE LAURA LETICIA CHAN COCOM DEL COHORT 25
+PROYECTO 8 'RUTAS URBANAS' DE LAURA LETICIA CHAN COCOM DEL COHORT 25 
 Automatización de Pruebas Funcionales para Rutas Urbanas
 
 Este proyecto contiene scripts de automatización de pruebas funcionales desarrollados en Python utilizando la librería Selenium. El objetivo de estas pruebas es verificar el flujo completo de la aplicación web Urban Routes, desde la selección de origen y destino hasta la solicitud de un taxi, incluyendo la verificación del número de teléfono y la adición de un método de pago.
