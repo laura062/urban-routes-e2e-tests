@@ -1,4 +1,4 @@
-# PROYECTO 8 'URBAN ROUTES' DE LAURA LETICIA CHAN COCOM
+# PROYECTO 8 'URBAN ROUTES' DE LAURA LETICIA CHAN COCOM.
   - Automatización de Pruebas Funcionales para Urban Routes
 
  - Este proyecto contiene scripts de automatización de pruebas funcionales desarrollados en Python utilizando la
